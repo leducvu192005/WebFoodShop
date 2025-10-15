@@ -1,61 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🍔 Website Bán Đồ Ăn Online
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🧑‍💻 Giới thiệu
 
-## About Laravel
+Đây là **dự án cá nhân** được xây dựng bằng **Laravel Framework**, mô phỏng một **website bán đồ ăn trực tuyến** cho phép người dùng xem, đặt món ăn và thanh toán đơn hàng một cách dễ dàng.  
+Dự án bao gồm hai phần chính:
+- **Phần người dùng (Customer)**: đặt món, theo dõi đơn hàng, đánh giá.
+- **Phần quản trị (Admin)**: quản lý sản phẩm, đơn hàng, người dùng và doanh thu.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Công nghệ sử dụng
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Laravel** 11.x (PHP Framework)
+- **MySQL** (Cơ sở dữ liệu)
+- **Blade Template** (Giao diện)
+- **Bootstrap 5 / Tailwind CSS**
+- **JavaScript / AJAX**
+- **Laravel Breeze** (xử lý đăng nhập/đăng ký)
+- **Spatie Roles & Permissions** (phân quyền người dùng)
+- **Laravel Eloquent ORM**
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🏗️ Cấu trúc thư mục chính
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+├── app/
+│ ├── Http/Controllers/ # Các controller cho user & admin
+│ ├── Models/ # Các model (User, Product, Order, Cart...)
+│ └── Policies/ # Chính sách phân quyền (nếu có)
+│
+├── database/
+│ ├── migrations/ # File tạo bảng
+│ └── seeders/ # Dữ liệu mẫu
+│
+├── public/
+│ ├── images/ # Ảnh món ăn, banner
+│ ├── css/ js/ # Tài nguyên frontend
+│
+├── resources/
+│ ├── views/ # Giao diện Blade
+│ │ ├── user/ # Giao diện người dùng
+│ │ └── admin/ # Giao diện quản trị
+│
+├── routes/
+│ ├── web.php # Định nghĩa route chính
+│ └── api.php # API (nếu có)
+│
+└── README.md
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+less
+Sao chép mã
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🍱 Các tính năng chi tiết
 
-### Premium Partners
+### 👤 1. Chức năng cho khách hàng (User)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+#### 🔐 Đăng ký / Đăng nhập / Đăng xuất
+- Đăng ký tài khoản mới bằng email, mật khẩu, số điện thoại.
+- Đăng nhập bằng email và mật khẩu.
+- Đổi mật khẩu / Quên mật khẩu.
+- Đăng xuất an toàn (Laravel Auth).
 
-## Contributing
+#### 🍔 Xem danh sách món ăn
+- Hiển thị toàn bộ món ăn có sẵn.
+- Lọc theo danh mục: món chính, tráng miệng, nước uống, combo, v.v.
+- Tìm kiếm món ăn theo tên.
+- Hiển thị thông tin: ảnh, tên, mô tả ngắn, giá, trạng thái còn hàng.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### 🔍 Tìm kiếm và bộ lọc
+- Tìm theo tên món.
+- Lọc theo giá tăng/giảm dần, đánh giá, danh mục.
 
-## Code of Conduct
+#### 🛒 Giỏ hàng (Cart)
+- Thêm món vào giỏ.
+- Cập nhật số lượng món.
+- Xóa món khỏi giỏ.
+- Hiển thị tổng tiền và phí giao hàng.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### 💳 Thanh toán (Checkout)
+- Nhập địa chỉ giao hàng và thông tin liên hệ.
+- Chọn hình thức thanh toán (COD / Online).
+- Xác nhận đơn hàng và nhận mã đơn.
 
-## Security Vulnerabilities
+#### 🚚 Theo dõi đơn hàng
+- Xem lịch sử và trạng thái đơn hàng:
+  - Đang xử lý
+  - Đang giao
+  - Đã giao
+  - Đã hủy
+- Cập nhật trạng thái theo thời gian thực (nếu bật thông báo).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### ⭐ Đánh giá món ăn
+- Viết bình luận, đánh giá sao (1–5).
+- Hiển thị đánh giá trung bình của từng món.
 
-## License
+#### ❤️ Danh sách yêu thích
+- Lưu các món ăn yêu thích để đặt lại sau.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### 👤 Hồ sơ cá nhân
+- Xem, chỉnh sửa thông tin tài khoản.
+- Xem lịch sử đơn hàng và trạng thái chi tiết.
+
+---
+
+### 🧑‍🍳 2. Chức năng cho quản trị viên (Admin)
+
+#### 📦 Quản lý món ăn
+- Thêm, sửa, xóa món ăn.
+- Quản lý ảnh, giá, mô tả, danh mục.
+- Ẩn/hiện món ăn trên giao diện người dùng.
+
+#### 📊 Quản lý đơn hàng
+- Xem danh sách tất cả đơn hàng.
+- Cập nhật trạng thái đơn hàng.
+- Hủy hoặc xác nhận giao hàng.
+- Xem chi tiết từng đơn (món, số lượng, tổng tiền, người đặt).
+
+#### 👥 Quản lý người dùng
+- Danh sách khách hàng.
+- Xem lịch sử đặt hàng của từng người.
+- Khóa/mở tài khoản.
+
+#### 💰 Quản lý khuyến mãi
+- Tạo mã giảm giá (voucher code).
+- Cài đặt giảm giá phần trăm hoặc số tiền cố định.
+- Áp dụng cho toàn bộ hoặc từng danh mục món.
+
+#### 📈 Báo cáo doanh thu
+- Thống kê doanh thu theo ngày / tháng / năm.
+- Thống kê số đơn hàng, số món bán chạy.
+- Biểu đồ trực quan (Chart.js hoặc ApexCharts).
+
+#### 🖼️ Quản lý nội dung trang
+- Cập nhật banner, thông báo, bài viết.
+- Quản lý ảnh quảng cáo và slider.
+
+---
+
+## ⚙️ 3. Các tính năng bổ sung (nâng cao)
+
+- 🗺️ Định vị giao hàng (Google Maps API)
+- 🔔 Thông báo đơn hàng mới cho admin (Realtime Notification)
+- 📱 Giao diện responsive (hiển thị tốt trên điện thoại)
+- 🤖 Chat hỗ trợ khách hàng
+- 🔒 Bảo mật JWT / CSRF / XSS / Password Hashing (bcrypt)
+- 🌐 Hỗ trợ đa ngôn ngữ (vi/en)
+
+---
