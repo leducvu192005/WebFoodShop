@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -40,6 +41,12 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // **********************************************
+        // LOGIC PHÂN QUYỀN: Gán vai trò 'customer' mặc định
+        // Dòng này yêu cầu App\Models\User đã sử dụng HasRoles trait.
+        // **********************************************
+        $user->assignRole('customer'); 
 
         event(new Registered($user));
 
