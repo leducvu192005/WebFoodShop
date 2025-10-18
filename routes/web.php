@@ -49,7 +49,7 @@ Route::middleware(['auth', 'role:admin'])
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('products', ProductController::class);
-        Route::resource('orders', OrderController::class)->only(['index', 'show', 'update']);
+       Route::resource('orders', OrderController::class)->only(['index', 'show', 'update']);
         Route::resource('users', UserController::class)->only(['index', 'edit', 'update']);
         Route::get('/settings', function () {
             return view('admin.settings');
