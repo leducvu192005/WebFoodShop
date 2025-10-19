@@ -1,29 +1,29 @@
 @props(['product'])
 
 <div class="group bg-white rounded-lg overflow-hidden border shadow-sm hover:shadow-md transition-all duration-300"
-     style="width:200px; height:300px; font-size:10px;">
+     style="width: 400px;
+     height: 450px;
+
+      font-size: 10px;">
 
     <!-- Image -->
-    <div class="relative w-full flex-shrink-0" style="height:65%; cursor:pointer;"
-         onclick="window.location='{{ route('product.show', $product->id) }}'">
-        <img 
-            src="{{ asset('storage/' . $product->image) }}" 
-            alt="{{ $product->name }}" 
-            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-        />
+    <div class="relative w-full flex-shrink-0 bg-gray-100"
+     style="height:65%; cursor:pointer; background-image:url('{{ asset('storage/' . $product->image) }}'); background-size:contain; background-position:center; background-repeat:no-repeat;"
+     onclick="window.location='{{ route('product.show', $product->id) }}'">
 
-        @if($product->discount)
-            <span class="absolute top-0 left-0 bg-red-500 text-white px-1 rounded text-[8px]">
-                -{{ $product->discount }}%
-            </span>
-        @endif
+    @if($product->discount)
+        <span class="absolute top-0 left-0 bg-red-500 text-white px-1 rounded text-[8px]">
+            -{{ $product->discount }}%
+        </span>
+    @endif
 
-        @if($product->isNew)
-            <span class="absolute top-0 right-0 bg-green-500 text-white px-1 rounded text-[8px]">
-                Mới
-            </span>
-        @endif
-    </div>
+    @if($product->isNew)
+        <span class="absolute top-0 right-0 bg-green-500 text-white px-1 rounded text-[8px]">
+            Mới
+        </span>
+    @endif
+
+</div>
 
     <!-- Content -->
     <div class="p-1 flex flex-col justify-end flex-1" style="height:35%;">
@@ -56,4 +56,4 @@
             </button>
         </form>
     </div>
-</div>
+</div>  

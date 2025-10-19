@@ -23,6 +23,11 @@ class UserProductController extends Controller
 
         return view('user.menu.index', compact('products', 'category'));
     }
+public function cart()
+{
+    $cart = session()->get('cart', []); // Lấy giỏ hàng từ session
+    return view('user.cart.index', compact('cart'));
+}
 
     // Hiển thị chi tiết sản phẩm
     public function show(Product $product)

@@ -1,10 +1,17 @@
+@extends('layouts.app')
+@section('content')
+
+    
 @props(['product', 'reviews'])
 
 <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 overflow-y-auto">
     <div class="grid md:grid-cols-2 gap-6">
         <!-- Image -->
         <div class="relative">
-            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full aspect-square object-cover rounded-lg">
+<img src="{{ asset('storage/' . $product->image) }}" 
+     alt="{{ $product->name }}" 
+     class="rounded-lg"
+     style="width:400px; height:450px; object-fit:cover; margin:auto;">
 
             @if($product->discount)
                 <span class="absolute top-4 left-4 bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">
@@ -164,3 +171,4 @@
         document.getElementById('form-qty').value = this.value;
     });
 </script>
+@endsection

@@ -18,15 +18,17 @@
             </a>
         @endforeach
     </div>
-
-    <!-- Product Grid: 3 cột -->
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    @forelse ($products as $product)
-        @include('components.product-card', ['product' => $product])
-    @empty
-        <p class="text-center w-full">Không có món ăn nào.</p>
-    @endforelse
+<!-- Thay thế đoạn grid bằng đoạn này -->
+<div class="flex flex-wrap">
+    @foreach ($products as $product)
+        <div class="w-1/3 p-2"> {{-- 3 cột mỗi hàng --}}
+            @include('components.product-card', ['product' => $product])
+        </div>
+    @endforeach
 </div>
+
+
+
 
 
     <!-- Pagination -->
