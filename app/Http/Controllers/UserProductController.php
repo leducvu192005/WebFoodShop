@@ -23,20 +23,31 @@ class UserProductController extends Controller
 
         return view('user.menu.index', compact('products', 'category'));
     }
-public function cart()
-{
-    $cart = session()->get('cart', []); // Lấy giỏ hàng từ session
-    return view('user.cart.index', compact('cart'));
-}
+
+    public function cart()
+    {
+        $cart = session()->get('cart', []); // Lấy giỏ hàng từ session
+
+        // Tính subtotal
+        $subtotal = 0;
+        foreach ($cart as $item) {
+            $subtotal += $item['price'] * $item['quantity'];
+        }
+
+        // Phí giao hàng (ví dụ cố định 30.000đ nếu có sản phẩm)
+        $shippingFee = $subtotal > 0 ? 30000 : 0;
+
+        return view('user.cart.index', compact('cart', 'subtotal', 'shippingFee'));
+    }
 
     // Hiển thị chi tiết sản phẩm
     public function show(Product $product)
-{
-    // Sử dụng quan hệ reviews() để lấy Collection, luôn Countable
-    $reviews = $product->reviews()->get();
+    {
+        // Sử dụng quan hệ reviews() để lấy Collection, luôn Countable
+        $reviews = $product->reviews()->get();
 
-    return view('user.menu.show', compact('product', 'reviews'));
-}
+        return view('user.menu.show', compact('product', 'reviews'));
+    }
 
     // Thêm sản phẩm vào giỏ hàng
     // Nên dùng POST
@@ -57,4 +68,5 @@ public function cart()
 
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
+
 }
