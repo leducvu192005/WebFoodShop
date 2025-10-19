@@ -31,13 +31,39 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 mb-3">
                     <label class="form-label fw-semibold">Giá (VNĐ)</label>
                     <input type="number" name="price" class="form-control" min="0" placeholder="Nhập giá" required>
                 </div>
-                <div class="col-md-6 mb-3">
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-semibold">Giá gốc (nếu có)</label>
+                    <input type="number" name="originalPrice" class="form-control" min="0" placeholder="Nhập giá gốc">
+                </div>
+
+                <div class="col-md-4 mb-3">
                     <label class="form-label fw-semibold">Số lượng tồn kho</label>
                     <input type="number" name="stock" class="form-control" min="0" placeholder="Nhập số lượng" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Danh mục</label>
+                <input type="text" name="category" class="form-control" placeholder="Nhập danh mục sản phẩm">
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Phần trăm giảm giá (nếu có)</label>
+                    <input type="number" name="discount" class="form-control" min="0" max="100" placeholder="Nhập % giảm giá">
+                </div>
+                <div class="col-md-6 mb-3 d-flex align-items-center mt-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="isNew" id="isNew">
+                        <label class="form-check-label" for="isNew">
+                            Mới
+                        </label>
+                    </div>
                 </div>
             </div>
 

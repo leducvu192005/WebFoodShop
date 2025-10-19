@@ -9,7 +9,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController;
-
+use App\Http\Controllers\UserProductController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | KHU VỰC KHÁCH HÀNG (CUSTOMER) & KHÁCH CHƯA ĐĂNG NHẬP
@@ -20,7 +21,12 @@ use App\Http\Controllers\Admin\UserController;
 Route::get('/', function () {
     return view('home');
 })->name('home');
+Route::get('/product/{product}', [UserProductController::class, 'show'])->name('product.show');
 
+Route::post('/product/{product}/add-to-cart', [UserProductController::class, 'add'])->name('cart.add');
+
+
+Route::get('/', [UserProductController::class, 'index'])->name('menu');
 // Khi đăng nhập thành công → tự động chuyển theo role
 Route::get('/redirect-after-login', function () {
     $user = Auth::user();
@@ -52,9 +58,14 @@ Route::middleware(['auth', 'role:admin'])
        Route::resource('orders', OrderController::class)->only(['index', 'show', 'update']);
        Route::resource('users', UserController::class);
 
-        Route::get('/settings', function () {
-            return view('admin.settings');
-        })->name('settings');
+         // Trang settings
+    Route::get('/settings', function () {
+        $settings = \App\Models\Setting::first();
+        return view('admin.settings', compact('settings'));
+    })->name('settings');
+
+    // Route update để lưu settings
+    Route::put('/settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
     });
 
 require __DIR__.'/auth.php';

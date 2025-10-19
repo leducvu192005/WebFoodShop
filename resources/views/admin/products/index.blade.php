@@ -31,7 +31,11 @@
                     <th>ID</th>
                     <th>Ảnh</th>
                     <th>Tên sản phẩm</th>
+                    <th>Danh mục</th>
                     <th>Giá (VNĐ)</th>
+                    <th>Giá gốc (VNĐ)</th>
+                    <th>Giảm giá (%)</th>
+                    <th>Mới</th>
                     <th>Tồn kho</th>
                     <th>Mô tả</th>
                     <th width="150">Hành động</th>
@@ -52,7 +56,11 @@
                         </td>
 
                         <td>{{ $product->name }}</td>
+                        <td>{{ $product->category ?? '-' }}</td>
                         <td class="text-end">{{ number_format($product->price, 0, ',', '.') }}</td>
+                        <td class="text-end">{{ $product->originalPrice ? number_format($product->originalPrice,0,',','.') : '-' }}</td>
+                        <td class="text-center">{{ $product->discount ?? '-' }}</td>
+                        <td class="text-center">{{ $product->isNew ? '✔️' : '-' }}</td>
                         <td class="text-center">{{ $product->stock ?? 0 }}</td>
                         <td>{{ Str::limit($product->description, 50) }}</td>
 
@@ -71,7 +79,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center text-muted py-4">Không có sản phẩm nào.</td>
+                        <td colspan="11" class="text-center text-muted py-4">Không có sản phẩm nào.</td>
                     </tr>
                 @endforelse
             </tbody>
