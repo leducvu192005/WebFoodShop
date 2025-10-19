@@ -6,7 +6,11 @@
     <!-- Category Filter -->
     <div class="mb-6 flex justify-center flex-wrap gap-4">
         @php
-            $categories = ['all', 'Bánh mì', 'Pizza', 'Mỳ Ý', 'Trà sữa', 'Fastfood']; // ví dụ
+        use App\Models\Product;
+            $categories = Product
+            ::select('category')->distinct()->pluck('category');
+$categories->prepend('all');
+
         @endphp
         @foreach($categories as $cat)
             <a href="{{ route('menu', ['category' => $cat]) }}"

@@ -6,6 +6,7 @@
     <title>@yield('title', 'FoodMart')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="bg-white text-gray-900">
 
 <header class="sticky top-0 z-50 w-full border-b bg-white backdrop-blur supports-[backdrop-filter]:bg-white/60">
@@ -107,6 +108,7 @@
 <main class="container mx-auto py-6">
     @yield('content')
 </main>
+@include('layouts.footer')
 
 </body>
 </html>

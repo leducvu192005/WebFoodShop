@@ -24,6 +24,24 @@ class ProductController extends Controller
 
     return view('admin.products.index', compact('products', 'search'));
 }
+//lọc sản phẩm
+public function menu(Request $request)
+{
+    $category = $request->category ?? 'all';
+
+    // Lấy danh sách category duy nhất
+    $categories = Product::select('category')->distinct()->pluck('category');
+    $categories->prepend('all'); // Thêm "all" vào đầu
+
+    // Lọc sản phẩm
+    $products = Product::when($category !== 'all', function($query) use ($category) {
+            return $query->where('category', $category);
+        })
+        ->paginate(9);
+
+    return view('user.menu.index', compact('products', 'category', 'categories'));
+}
+
 
 
     // Form thêm mới
@@ -35,13 +53,16 @@ class ProductController extends Controller
     // Lưu sản phẩm mới
     public function store(Request $request)
 {
+   
     $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'price' => 'required|numeric|min:0',
-        'stock' => 'required|integer|min:0',
-        'description' => 'nullable|string',
-        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-    ]);
+    'name' => 'required|string|max:255',
+    'price' => 'required|numeric|min:0',
+    'stock' => 'required|integer|min:0',
+    'description' => 'nullable|string',
+    'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+    'category' => 'nullable|string|max:255', // ✅ THÊM DÒNG NÀY
+]);
+
 
     if ($request->hasFile('image')) {
         // Lưu file vào storage/app/public/products
@@ -83,7 +104,8 @@ class ProductController extends Controller
     // Xóa sản phẩm
     public function destroy(Product $product)
     {
-        $product->delete();
+        $product->forceDelete(); // ✅ Xóa hẳn khỏi database
+
         return redirect()->route('admin.products.index')->with('success', 'Đã xóa sản phẩm!');
     }
 }
