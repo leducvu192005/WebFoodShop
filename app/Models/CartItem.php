@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,10 +8,13 @@ class CartItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'product_name',
-        'quantity',
-        'price', // nếu muốn
-        'user_id' // nếu muốn theo user
-    ];
+    protected $fillable = ['cart_id', 'user_id', 'product_id', 'quantity', 'price'];
+
+    public function cart() {
+        return $this->belongsTo(Cart::class);
+    }
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
 }

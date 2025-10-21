@@ -43,14 +43,23 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
+  
     public function destroy(Request $request): RedirectResponse
-    {
-        Auth::guard('web')->logout();
+{
+    $user = Auth::user(); // lấy thông tin user trước khi logout
 
-        $request->session()->invalidate();
+    Auth::guard('web')->logout();
 
-        $request->session()->regenerateToken();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        return redirect('/');
+    // ✅ Nếu là admin hoặc manager thì về form đăng nhập
+    if ($user && ($user->hasRole('admin') || $user->hasRole('manager'))) {
+        return redirect('/login');
     }
+
+    // ✅ Người dùng bình thường về trang chủ
+    return redirect('/');
+}
+
 }

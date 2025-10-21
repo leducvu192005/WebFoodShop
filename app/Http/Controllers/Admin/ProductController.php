@@ -82,24 +82,34 @@ public function menu(Request $request)
     }
 
     // Cập nhật sản phẩm
-    public function update(Request $request, Product $product)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+  public function update(Request $request, Product $product)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'price' => 'required|numeric|min:0',
+        'originalPrice' => 'nullable|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+        'category' => 'nullable|string|max:255',
+        'discount' => 'nullable|numeric|min:0|max:100',
+        'isNew' => 'nullable|boolean',
+        'image' => 'nullable|image|max:2048',
+    ]);
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('products', 'public');
-        }
-
-        $product->update($validated);
-
-        return redirect()->route('admin.products.index')->with('success', 'Cập nhật thành công!');
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('products', 'public');
+        $validated['image'] = $path;
     }
+
+    // Gán lại đúng tên cột DB (nếu khác tên input)
+    $validated['original_price'] = $validated['originalPrice'] ?? null;
+    $validated['is_new'] = $request->has('isNew') ? 1 : 0;
+    unset($validated['originalPrice'], $validated['isNew']);
+
+    $product->update($validated);
+
+    return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công!');
+}
 
     // Xóa sản phẩm
     public function destroy(Product $product)
