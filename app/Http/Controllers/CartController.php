@@ -70,7 +70,7 @@ class CartController extends Controller
         $item->quantity = $request->input('quantity', $item->quantity);
         $item->save();
 
-        return redirect()->route('cart.index')->with('success', 'Cập nhật giỏ hàng thành công!');
+        return back()->with('success', 'Cập nhật giỏ hàng thành công!');
     }
 
     // ❌ Xóa sản phẩm khỏi giỏ
