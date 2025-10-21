@@ -24,11 +24,7 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders', 'search'));
     }
 
-    // Form tạo đơn hàng (nếu muốn)
-    public function create()
-    {
-        return view('admin.orders.create');
-    }
+   
 
     // Lưu đơn hàng mới
     public function store(Request $request)
@@ -81,4 +77,22 @@ class OrderController extends Controller
 
         return redirect()->route('admin.orders.index')->with('success', 'Đã xóa đơn hàng!');
     }
+    public function confirm($id)
+{
+    $order = Order::findOrFail($id);
+    $order->status = 'confirmed'; // hoặc 'processing' nếu bạn muốn
+    $order->save();
+
+    return redirect()->route('admin.orders.index')->with('success', '✅ Đơn hàng đã được xác nhận!');
+}
+
+// ✅ Hủy đơn hàng
+public function cancel($id)
+{
+    $order = Order::findOrFail($id);
+    $order->status = 'canceled';
+    $order->save();
+
+    return redirect()->route('admin.orders.index')->with('error', '❌ Đơn hàng đã bị hủy!');
+}
 }

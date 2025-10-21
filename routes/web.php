@@ -10,13 +10,17 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController as UserOrderController; // 👈 alias cho order phía người dùng
+use App\Http\Controllers\PromotionController; // 👈 thêm dòng này ở trên cùng
 
 // ------------------ TRANG CHỦ & MENU ------------------
 Route::get('/', [UserProductController::class, 'index'])->name('home');
 Route::get('/menu', [UserProductController::class, 'index'])->name('menu');
+Route::get('/', [UserProductController::class, 'home'])->name('home');
 
 // ------------------ SẢN PHẨM ------------------
 Route::get('/product/{product}', [UserProductController::class, 'show'])->name('product.show');
+// khuyến mãi
+Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions.index');
 
 // ------------------ GIỎ HÀNG ------------------
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -27,6 +31,8 @@ Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remov
 // ------------------ THANH TOÁN (CHECKOUT) ------------------
 Route::get('/checkout', [UserOrderController::class, 'checkout'])->name('checkout');   // hiển thị form điền thông tin
 Route::post('/checkout/store', [UserOrderController::class, 'store'])->name('checkout.store'); // xử lý xác nhận đặt hàng
+// ------------------ KHUYẾN MÃI / FLASH SALE ------------------
+Route::get('/flash-sale', [UserProductController::class, 'flashSale'])->name('flash.sale');
 
 // ------------------ SAU KHI LOGIN ------------------
 Route::get('/redirect-after-login', function () {

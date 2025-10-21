@@ -61,7 +61,6 @@
 
         <div class="mt-4 d-flex justify-content-between">
             <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary">⬅ Quay lại</a>
-            <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">✏️ Cập nhật đơn hàng</a>
         </div>
     </div>
 </div>

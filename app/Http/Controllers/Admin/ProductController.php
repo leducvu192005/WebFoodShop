@@ -51,28 +51,32 @@ public function menu(Request $request)
     }
 
     // Lưu sản phẩm mới
-    public function store(Request $request)
+public function store(Request $request)
 {
-   
     $validated = $request->validate([
-    'name' => 'required|string|max:255',
-    'price' => 'required|numeric|min:0',
-    'stock' => 'required|integer|min:0',
-    'description' => 'nullable|string',
-    'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-    'category' => 'nullable|string|max:255', // ✅ THÊM DÒNG NÀY
-]);
-
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'price' => 'required|numeric|min:0',
+        'original_price' => 'nullable|numeric|min:0',
+        'discount' => 'nullable|numeric|min:0|max:100',
+        'stock' => 'required|integer|min:0',
+        'category' => 'nullable|string|max:255',
+        'isNew' => 'nullable', // checkbox
+        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+    ]);
 
     if ($request->hasFile('image')) {
-        // Lưu file vào storage/app/public/products
         $validated['image'] = $request->file('image')->store('products', 'public');
     }
+
+    // Gán cột đúng với DB
+    $validated['is_new'] = $request->has('isNew') ? 1 : 0;
 
     Product::create($validated);
 
     return redirect()->route('admin.products.index')->with('success', 'Thêm sản phẩm thành công!');
 }
+
 
 
     // Form chỉnh sửa

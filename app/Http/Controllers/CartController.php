@@ -60,7 +60,7 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->route('cart.index')->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
+        return back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
 
     // 🔁 Cập nhật số lượng
@@ -70,7 +70,7 @@ class CartController extends Controller
         $item->quantity = $request->input('quantity', $item->quantity);
         $item->save();
 
-        return back()->with('success', 'Cập nhật giỏ hàng thành công!');
+        return redirect()->route('cart.index')->with('success', 'Cập nhật giỏ hàng thành công!');
     }
 
     // ❌ Xóa sản phẩm khỏi giỏ

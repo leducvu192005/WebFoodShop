@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->string('customer_name');
             $table->string('customer_email')->nullable();
             $table->string('customer_phone')->nullable();
+
             $table->decimal('total', 10, 2);
             $table->enum('status', ['pending', 'processing', 'completed', 'canceled'])->default('pending');
             $table->timestamps();

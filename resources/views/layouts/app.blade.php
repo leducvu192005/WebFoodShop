@@ -26,8 +26,10 @@
         <nav class="hidden lg:flex items-center gap-6">
             <a href="{{ route('home') }}" class="text-sm hover:text-orange-600 transition-colors">Trang chủ</a>
             <a href="{{ route('menu') }}" class="text-sm hover:text-orange-600 transition-colors">Thực đơn</a>
-            <a href="#" class="text-sm hover:text-orange-600 transition-colors">Khuyến mãi</a>
-            <a href="#" class="text-sm hover:text-orange-600 transition-colors">Về chúng tôi</a>
+            <a href="{{ route('promotions.index') }}" class="text-sm hover:text-orange-600 transition-colors">
+    Khuyến mãi
+</a>
+
         </nav>
 
         {{-- Search + User + Cart --}}

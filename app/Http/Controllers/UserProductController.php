@@ -7,66 +7,97 @@ use Illuminate\Http\Request;
 
 class UserProductController extends Controller
 {
-    // Danh sách sản phẩm / menu
+    /**
+     * Trang menu - hiển thị danh sách sản phẩm
+     */
     public function index(Request $request)
     {
-        // Lấy danh mục hiện tại (mặc định 'all')
         $category = $request->input('category', 'all');
 
-        // Lọc sản phẩm theo danh mục nếu cần
         $products = Product::when($category !== 'all', function ($query) use ($category) {
             return $query->where('category', $category);
-        })->paginate(12); // số sản phẩm mỗi trang
+        })->paginate(12);
 
-        // Giữ query khi chuyển trang
         $products->appends(['category' => $category]);
 
         return view('user.menu.index', compact('products', 'category'));
     }
 
+    /**
+     * Trang giỏ hàng
+     */
     public function cart()
     {
-        $cart = session()->get('cart', []); // Lấy giỏ hàng từ session
+        $cart = session()->get('cart', []);
 
-        // Tính subtotal
-        $subtotal = 0;
-        foreach ($cart as $item) {
-            $subtotal += $item['price'] * $item['quantity'];
-        }
-
-        // Phí giao hàng (ví dụ cố định 30.000đ nếu có sản phẩm)
+        $subtotal = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
         $shippingFee = $subtotal > 0 ? 30000 : 0;
 
         return view('user.cart.index', compact('cart', 'subtotal', 'shippingFee'));
     }
 
-    // Hiển thị chi tiết sản phẩm
+    /**
+     * Trang chi tiết sản phẩm
+     */
     public function show(Product $product)
     {
-        // Sử dụng quan hệ reviews() để lấy Collection, luôn Countable
         $reviews = $product->reviews()->get();
 
         return view('user.menu.show', compact('product', 'reviews'));
     }
 
-    // Thêm sản phẩm vào giỏ hàng
-    // Nên dùng POST
+    /**
+     * Thêm sản phẩm vào giỏ hàng (session)
+     */
     public function addToCart(Request $request, Product $product)
     {
-        $quantity = $request->input('quantity', 1);
+        $quantity = max(1, (int)$request->input('quantity', 1));
 
-        // Logic thêm vào giỏ hàng (session hoặc database)
         $cart = session()->get('cart', []);
+
         $cart[$product->id] = [
             'product_id' => $product->id,
-            'name' => $product->name,
-            'price' => $product->price,
-            'quantity' => $quantity,
-            'image' => $product->image,
+            'name'       => $product->name,
+            'price'      => $product->price,
+            'quantity'   => $quantity,
+            'image'      => $product->image,
         ];
+
         session()->put('cart', $cart);
 
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
+
+    /**
+     * Trang Flash Sale riêng (nếu người dùng nhấn vào menu "Khuyến mãi")
+     */
+    public function flashSale()
+    {
+        $products = Product::whereNotNull('discount')
+            ->where('discount', '>', 0)
+            ->orderByDesc('discount')
+            ->get();
+
+        return view('user.promotions.flash_sale', compact('products'));
+    }
+
+    /**
+     * Trang Home (hiển thị Flash Sale + Món ăn nổi bật)
+     */
+   
+    public function home()
+{
+    $saleProducts = Product::whereNotNull('discount')
+        ->where('discount', '>', 0)
+        ->orderByDesc('discount')
+        ->take(1)
+        ->get();
+
+    $products = Product::orderByDesc('rating')
+        ->take(6)
+        ->get();
+
+    return view('home', compact('saleProducts', 'products'));
+}
 
 }
