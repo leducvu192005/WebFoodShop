@@ -8,18 +8,29 @@ use Illuminate\Http\Request;
 class UserProductController extends Controller
 {
    
-    public function index(Request $request)
-    {
-        $category = $request->input('category', 'all');
+public function index(Request $request)
+{
+    $category = $request->input('category', 'all');
+    $search = $request->input('search');
 
-        $products = Product::when($category !== 'all', function ($query) use ($category) {
+    $products = Product::query()
+        ->when($category !== 'all', function ($query) use ($category) {
             return $query->where('category', $category);
-        })->paginate(12);
+        })
+        ->when($search, function ($query) use ($search) {
+            return $query->where('name', 'LIKE', '%' . $search . '%')
+                         ->orWhere('description', 'LIKE', '%' . $search . '%');
+        })
+        ->paginate(12);
 
-        $products->appends(['category' => $category]);
+    $products->appends([
+        'category' => $category,
+        'search' => $search
+    ]);
 
-        return view('user.menu.index', compact('products', 'category'));
-    }
+    return view('user.menu.index', compact('products', 'category', 'search'));
+}
+
 
    
     public function cart()
