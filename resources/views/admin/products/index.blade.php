@@ -6,12 +6,10 @@
 <div class="container mt-4">
     <h2 class="mb-4 fw-bold text-center text-primary">Quản lý sản phẩm</h2>
 
-    {{-- Thông báo --}}
     @if (session('success'))
         <div class="alert alert-success text-center">{{ session('success') }}</div>
     @endif
 
-    {{-- Thanh công cụ tìm kiếm + thêm sản phẩm --}}
     <div class="d-flex justify-content-between align-items-center mb-3">
         <form method="GET" action="{{ route('admin.products.index') }}" class="d-flex w-50">
             <input type="text" name="search" class="form-control me-2" placeholder="🔍 Tìm sản phẩm..." value="{{ request('search') }}">
@@ -23,7 +21,6 @@
         </a>
     </div>
 
-    {{-- Bảng sản phẩm --}}
     <div class="table-responsive shadow-sm rounded">
         <table class="table table-bordered table-hover align-middle">
             <thead class="table-light text-center">
@@ -46,7 +43,6 @@
                     <tr>
                         <td class="text-center">{{ $product->id }}</td>
 
-                        {{-- Hiển thị ảnh --}}
                         <td class="text-center">
                             @if ($product->image)
                                 <img src="{{ asset('storage/' . $product->image) }}" alt="Ảnh sản phẩm" class="rounded" width="60" height="60">
@@ -86,7 +82,6 @@
         </table>
     </div>
 
-    {{-- Phân trang --}}
     <div class="d-flex justify-content-center mt-3">
         {{ $products->links() }}
     </div>

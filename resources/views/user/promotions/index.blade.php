@@ -6,14 +6,12 @@
         🔥 ƯU ĐÃI ĐẶC BIỆT - FLASH SALE 🔥
     </h3>
 
-    {{-- Thanh chứa thẻ khuyến mãi --}}
     <div class="flash-sale-container d-flex gap-4 overflow-auto pb-3 px-2">
         @forelse ($products as $product)
             <div class="flash-sale-card flex-shrink-0 bg-white border-0 shadow-sm rounded-4 position-relative"
                  style="width: 230px; cursor: pointer;"
                  onclick="window.location='{{ route('product.show', $product->id) }}'">
 
-                {{-- Hình ảnh --}}
                 <div class="position-relative">
                     <img src="{{ asset('storage/' . $product->image) }}" 
                          alt="{{ $product->name }}" 
@@ -69,7 +67,7 @@
 }
 
 .flash-sale-card {
-  border-radius: 16px; /* 👈 Bo góc toàn thẻ */
+  border-radius: 16px; 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .flash-sale-card:hover {

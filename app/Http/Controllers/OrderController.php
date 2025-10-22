@@ -8,15 +8,11 @@ use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
-    /**
-     * Hiển thị trang điền thông tin đặt hàng
-     */
 
     public function checkout()
 {
     $user = auth()->user();
 
-    // Lấy giỏ hàng từ DB
     $cart = CartItem::with('product')
                     ->where('user_id', $user->id)
                     ->get();
@@ -32,16 +28,12 @@ class OrderController extends Controller
     return view('user.cart.checkout', compact('cart', 'subtotal', 'shippingFee', 'total'));
 }
 
-    /**
-     * Xử lý khi người dùng nhấn xác nhận đặt hàng
-     */
-
+   
 
     public function store(Request $request)
 {
     $user = auth()->user();
 
-    // ✅ Lấy giỏ hàng từ DB thay vì session
     $cart = CartItem::with('product')
                     ->where('user_id', $user->id)
                     ->get();
@@ -50,7 +42,6 @@ class OrderController extends Controller
         return redirect()->route('cart.index')->with('error', 'Giỏ hàng của bạn đang trống.');
     }
 
-    // ✅ Validate dữ liệu
     $request->validate([
         'customer_name' => 'required|string|max:255',
         'customer_phone' => 'required|string|max:20',

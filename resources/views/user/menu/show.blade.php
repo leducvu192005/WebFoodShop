@@ -6,7 +6,6 @@
 
 <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 overflow-y-auto">
     <div class="grid md:grid-cols-2 gap-6">
-        <!-- Image -->
         <div class="relative">
 <img src="{{ asset('storage/' . $product->image) }}" 
      alt="{{ $product->name }}" 
@@ -26,7 +25,6 @@
             @endif
         </div>
 
-        <!-- Content -->
         <div class="space-y-4">
             <h2 class="text-2xl font-bold">{{ $product->name }}</h2>
 
@@ -42,7 +40,6 @@
 
             <hr class="my-2">
 
-            <!-- Price -->
             <div>
                 <div class="flex items-baseline gap-3">
                     <span class="text-2xl text-orange-600">{{ number_format($product->price,0,',','.') }}đ</span>
@@ -59,7 +56,6 @@
 
             <hr class="my-2">
 
-            <!-- Quantity -->
             <div class="space-y-2">
                 <label>Số lượng</label>
                 <div class="flex items-center gap-3">
@@ -69,7 +65,6 @@
                 </div>
             </div>
 
-            <!-- Actions -->
             <div class="flex gap-2 mt-2">
                 <form action="{{ route('cart.add', $product->id) }}" method="POST" class="flex-1">
                     @csrf
@@ -81,7 +76,6 @@
                 <button class="px-4 py-2 border rounded">Chia sẻ</button>
             </div>
 
-            <!-- Info -->
             <div class="bg-gray-100 rounded-lg p-4 space-y-2 text-sm mt-2">
                 <div class="flex justify-between">
                     <span class="text-gray-500">Thời gian giao hàng</span>
@@ -99,7 +93,6 @@
         </div>
     </div>
 
-    <!-- Tabs -->
     <div class="mt-6">
         <div class="flex border-b">
             <button onclick="showTab('desc')" class="px-4 py-2 border-b-2 border-orange-600 font-semibold" id="tab-desc-btn">Mô tả</button>
@@ -166,7 +159,6 @@
         }
     }
 
-    // Đồng bộ quantity input cho form
     document.getElementById('qty').addEventListener('input', function() {
         document.getElementById('form-qty').value = this.value;
     });

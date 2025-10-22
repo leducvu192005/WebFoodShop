@@ -6,7 +6,6 @@
 
       font-size: 10px;">
 
-    <!-- Image -->
     <div class="relative w-full flex-shrink-0 bg-gray-100"
      style="height:65%; cursor:pointer; background-image:url('{{ asset('storage/' . $product->image) }}'); background-size:contain; background-position:center; background-repeat:no-repeat;"
      onclick="window.location='{{ route('product.show', $product->id) }}'">
@@ -25,20 +24,16 @@
 
 </div>
 
-    <!-- Content -->
     <div class="p-1 flex flex-col justify-end flex-1" style="height:35%;">
-        <!-- Category + Rating -->
         <div class="flex justify-between items-center">
             <span class="text-gray-500 truncate">{{ $product->category }}</span>
             <span class="text-yellow-400">⭐{{ $product->rating }}</span>
         </div>
 
-        <!-- Name -->
         <h3 class="truncate font-bold" title="{{ $product->name }}">
             {{ $product->name }}
         </h3>
 
-        <!-- Price -->
         <div class="flex justify-between items-center">
             <span class="text-orange-600 font-bold">{{ number_format($product->price,0,',','.') }}đ</span>
             @if($product->originalPrice)
@@ -48,7 +43,6 @@
             @endif
         </div>
 
-        <!-- Add to Cart -->
         <form action="{{ route('cart.add', $product->id) }}" method="POST">
             @csrf
             <button type="submit" class="bg-orange-600 text-white text-[10px] w-full rounded mt-1">

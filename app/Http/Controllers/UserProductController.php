@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class UserProductController extends Controller
 {
-    /**
-     * Trang menu - hiển thị danh sách sản phẩm
-     */
+   
     public function index(Request $request)
     {
         $category = $request->input('category', 'all');
@@ -23,9 +21,7 @@ class UserProductController extends Controller
         return view('user.menu.index', compact('products', 'category'));
     }
 
-    /**
-     * Trang giỏ hàng
-     */
+   
     public function cart()
     {
         $cart = session()->get('cart', []);
@@ -36,9 +32,6 @@ class UserProductController extends Controller
         return view('user.cart.index', compact('cart', 'subtotal', 'shippingFee'));
     }
 
-    /**
-     * Trang chi tiết sản phẩm
-     */
     public function show(Product $product)
     {
         $reviews = $product->reviews()->get();
@@ -46,9 +39,7 @@ class UserProductController extends Controller
         return view('user.menu.show', compact('product', 'reviews'));
     }
 
-    /**
-     * Thêm sản phẩm vào giỏ hàng (session)
-     */
+ 
     public function addToCart(Request $request, Product $product)
     {
         $quantity = max(1, (int)$request->input('quantity', 1));
@@ -68,9 +59,7 @@ class UserProductController extends Controller
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
 
-    /**
-     * Trang Flash Sale riêng (nếu người dùng nhấn vào menu "Khuyến mãi")
-     */
+ 
     public function flashSale()
     {
         $products = Product::whereNotNull('discount')
@@ -81,9 +70,6 @@ class UserProductController extends Controller
         return view('user.promotions.flash_sale', compact('products'));
     }
 
-    /**
-     * Trang Home (hiển thị Flash Sale + Món ăn nổi bật)
-     */
    
     public function home()
 {

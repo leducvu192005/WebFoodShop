@@ -9,26 +9,20 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // ===============================
-    // Danh sách người dùng
-    // ===============================
+   
     public function index()
     {
-        $users = User::paginate(10); // Lấy danh sách user phân trang 10 bản ghi
+        $users = User::paginate(10); 
         return view('admin.users.index', compact('users'));
     }
 
-    // ===============================
-    // Form tạo người dùng mới
-    // ===============================
+   
     public function create()
     {
         return view('admin.users.create');
     }
 
-    // ===============================
-    // Lưu người dùng mới
-    // ===============================
+ 
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -45,17 +39,11 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Thêm người dùng thành công!');
     }
 
-    // ===============================
-    // Form chỉnh sửa người dùng
-    // ===============================
     public function edit(User $user)
     {
         return view('admin.users.edit', compact('user'));
     }
 
-    // ===============================
-    // Cập nhật người dùng
-    // ===============================
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
@@ -65,7 +53,6 @@ class UserController extends Controller
             'role' => 'required|string',
         ]);
 
-        // Nếu nhập password mới thì hash, nếu không giữ nguyên
         if (!empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
         } else {
@@ -77,9 +64,7 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Cập nhật người dùng thành công!');
     }
 
-    // ===============================
-    // Xóa người dùng
-    // ===============================
+ 
     public function destroy(User $user)
     {
         $user->delete();

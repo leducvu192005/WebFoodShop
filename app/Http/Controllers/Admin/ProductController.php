@@ -8,32 +8,25 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // Danh sách sản phẩm
     public function index(Request $request)
 {
-    // Lấy từ khóa tìm kiếm (nếu có)
     $search = $request->input('search', '');
 
-    // Lọc sản phẩm theo từ khóa
     $products = Product::when($search, function ($query, $search) {
         return $query->where('name', 'like', '%' . $search . '%');
     })->paginate(10);
 
-    // Giữ lại từ khóa khi chuyển trang
     $products->appends(['search' => $search]);
 
     return view('admin.products.index', compact('products', 'search'));
 }
-//lọc sản phẩm
 public function menu(Request $request)
 {
     $category = $request->category ?? 'all';
 
-    // Lấy danh sách category duy nhất
     $categories = Product::select('category')->distinct()->pluck('category');
-    $categories->prepend('all'); // Thêm "all" vào đầu
+    $categories->prepend('all'); 
 
-    // Lọc sản phẩm
     $products = Product::when($category !== 'all', function($query) use ($category) {
             return $query->where('category', $category);
         })
@@ -44,13 +37,11 @@ public function menu(Request $request)
 
 
 
-    // Form thêm mới
     public function create()
     {
         return view('admin.products.create');
     }
 
-    // Lưu sản phẩm mới
 public function store(Request $request)
 {
     $validated = $request->validate([
@@ -69,7 +60,6 @@ public function store(Request $request)
         $validated['image'] = $request->file('image')->store('products', 'public');
     }
 
-    // Gán cột đúng với DB
     $validated['is_new'] = $request->has('isNew') ? 1 : 0;
 
     Product::create($validated);
@@ -79,13 +69,11 @@ public function store(Request $request)
 
 
 
-    // Form chỉnh sửa
     public function edit(Product $product)
     {
         return view('admin.products.edit', compact('product'));
     }
 
-    // Cập nhật sản phẩm
   public function update(Request $request, Product $product)
 {
     $validated = $request->validate([
@@ -105,7 +93,6 @@ public function store(Request $request)
         $validated['image'] = $path;
     }
 
-    // Gán lại đúng tên cột DB (nếu khác tên input)
     $validated['original_price'] = $validated['originalPrice'] ?? null;
     $validated['is_new'] = $request->has('isNew') ? 1 : 0;
     unset($validated['originalPrice'], $validated['isNew']);
@@ -115,10 +102,9 @@ public function store(Request $request)
     return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công!');
 }
 
-    // Xóa sản phẩm
     public function destroy(Product $product)
     {
-        $product->forceDelete(); // ✅ Xóa hẳn khỏi database
+        $product->forceDelete(); 
 
         return redirect()->route('admin.products.index')->with('success', 'Đã xóa sản phẩm!');
     }

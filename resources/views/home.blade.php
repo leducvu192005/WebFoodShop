@@ -6,7 +6,6 @@
   <div class="card shadow-lg border-0 mb-5 p-4 flash-sale-card">
     <div class="row align-items-center g-4 flex-column text-center text-md-start px-4">
 
-      {{-- PHẦN CHỮ --}}
       <div class="col-12">
         <h2 class="fw-bold mb-3 text-light" style="font-size: 2rem;">
           🔥 Flash Sale Đặc Biệt Hôm Nay!
@@ -21,7 +20,6 @@
         </a>
       </div>
 
-      {{-- PHẦN ẢNH NẰM DƯỚI --}}
       <div class="col-12 d-flex justify-content-center gap-4 flex-wrap mt-4">
         @forelse($saleProducts as $product)
           <img src="{{ asset('storage/' . $product->image) }}" 
@@ -41,7 +39,6 @@
   </div>
 </div>
 
-<!-- CSS -->
 <style>
 .flash-sale-card {
   max-width: 1200px;
@@ -52,7 +49,6 @@
   text-align: center;
 }
 
-/* Ảnh */
 .flash-sale-img {
   max-height: 260px;
   width: auto;
@@ -64,7 +60,6 @@
   transform: scale(1.05);
 }
 
-/* Responsive */
 @media (max-width: 767.98px) {
   .flash-sale-img {
     max-height: 200px;
@@ -73,7 +68,6 @@
 </style>
 
 
-<!-- HTML -->
 <div class="product-section my-5">
   <h2 class="product-title text-center mb-4">🌟 Sản phẩm nổi bật 🌟</h2>
 
@@ -90,18 +84,15 @@
   </div>
 </div>
 
-<!-- CSS -->
 <style>
-/* ===== KHU VỰC CHUNG ===== */
 .product-section {
   width: 100%;
-  text-align: center; /* 👈 canh giữa toàn bộ nội dung */
+  text-align: center; 
 }
 
-/* ===== TIÊU ĐỀ ===== */
 .product-title {
   display: inline-block;
-  font-size: 1.4rem;         /* 👈 nhỏ hơn (so với 1.8rem trước) */
+  font-size: 1.4rem;         
   font-weight: 600;
   color: #333;
   text-transform: uppercase;
@@ -113,14 +104,13 @@
 .product-title::after {
   content: '';
   display: block;
-  width: 50px;               /* 👈 thanh gạch nhỏ hơn */
+  width: 50px;               
   height: 3px;
   background-color: #ff6600;
   margin: 6px auto 0;
   border-radius: 2px;
 }
 
-/* ===== HÀNG SẢN PHẨM ===== */
 .product-row-wrapper {
   width: 100%;
 }
@@ -130,14 +120,13 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  gap: 12rem;                 /* khoảng cách giữa các card */
+  gap: 12rem;                 
   padding: 1rem 2rem;
   align-items: flex-start;
   justify-content: center;
   scroll-behavior: smooth;
 }
 
-/* ===== MỖI CARD ===== */
 .product-card {
   flex: 0 0 250px;
   min-width: 250px;
@@ -151,7 +140,6 @@
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
-/* ===== SCROLLBAR ===== */
 .product-row::-webkit-scrollbar {
   height: 8px;
 }
@@ -161,7 +149,6 @@
 }
 </style>
 
-<!-- JS -->
 <script>
 (function () {
   const row = document.getElementById('product-row');

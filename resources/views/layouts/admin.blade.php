@@ -1,4 +1,3 @@
-{{-- resources/views/layouts/admin.blade.php (Rút gọn) --}}
 <!DOCTYPE html>
 <html lang="vi">
 <head>

@@ -26,7 +26,6 @@ class Product extends Model
     'is_new',
     'discount',
 ];
-// app/Models/Product.php
 public function reviews()
 {
     return $this->hasMany(Review::class);

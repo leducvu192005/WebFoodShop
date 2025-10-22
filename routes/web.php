@@ -9,8 +9,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\OrderController as UserOrderController; // 👈 alias cho order phía người dùng
-use App\Http\Controllers\PromotionController; // 👈 thêm dòng này ở trên cùng
+use App\Http\Controllers\OrderController as UserOrderController; 
+use App\Http\Controllers\PromotionController; 
 
 // ------------------ TRANG CHỦ & MENU ------------------
 Route::get('/', [UserProductController::class, 'index'])->name('home');
@@ -62,7 +62,6 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::resource('users', UserController::class);
 
-        // Cài đặt
         Route::get('/settings', function () {
             $settings = \App\Models\Setting::first();
             return view('admin.settings', compact('settings'));

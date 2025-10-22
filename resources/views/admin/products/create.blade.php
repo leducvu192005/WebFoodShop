@@ -7,7 +7,6 @@
     <div class="card shadow-lg p-5 w-100" style="max-width: 100%; border-radius: 20px;">
         <h3 class="text-center mb-4 fw-bold text-primary">🛍️ Thêm sản phẩm mới</h3>
 
-        {{-- Hiển thị lỗi --}}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul class="mb-0 ps-3">
@@ -18,11 +17,9 @@
             </div>
         @endif
 
-        {{-- Form thêm sản phẩm --}}
         <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            {{-- Nhóm label + input thẳng hàng --}}
             <div class="row mb-3 align-items-center">
                 <label class="col-sm-3 col-form-label fw-semibold">Tên sản phẩm</label>
                 <div class="col-sm-9">
@@ -104,7 +101,6 @@
     </div>
 </div>
 
-{{-- JS xem trước ảnh --}}
 <script>
 function previewImage(event) {
     const preview = document.getElementById('preview');
@@ -113,7 +109,6 @@ function previewImage(event) {
 }
 </script>
 
-{{-- CSS căn chỉnh --}}
 <style>
 body {
     background: #f6f8fb;
